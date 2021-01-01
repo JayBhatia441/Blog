@@ -1,0 +1,20 @@
+h1{
+  color:magenta;
+};
+
+body {
+        background-image: url({% static 'images/bj.jpg' %});
+
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+}
+.centered{
+  position:absolute;
+  top:80%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+.navbar-custom{
+  background-color: lightgreen;
+}

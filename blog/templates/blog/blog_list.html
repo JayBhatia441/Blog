@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% block body_block %}
+<div class="jumbotron" style="background-color:#FFFDD0">
+  <h2>Blog List:</h2>
+
+
+  {% for blog in blog_list %}
+
+
+  <ul>
+
+    <li><a href="{{ blog.id }}">{{ blog.title }}</a></li>
+    <a href="{% url 'blog:cats' cats=blog.category %}"><li>{{blog.category}}</li></a>
+
+  </ul>
+  <p>Comments:{{blog.comment.count}}</p>
+
+
+
+
+  {% endfor %}
+  {% if user.is_authenticated %}
+  <a href="{% url 'blog:create' %}"><button class="btn" style="background-color:#E4A0F7" type="submit" name="button">Create Blog</button></a>
+  {% endif %}
+
+
+</div>
+
+
+{% endblock %}

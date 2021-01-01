@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% block body_block %}
+<div class="jumbotron" style="background-color:#FFFDD0">
+  <h2>User List:</h2>
+
+  {% for use in user_list %}
+
+  <ul>
+
+    <li><a href="{% url 'blog:user_profile' use.pk  %}">{{ use.username }}</a></li>
+
+
+  </ul>
+
+
+
+
+
+  {% endfor %}
+  {% if not user.is_authenticated %}
+  <h3>Wanna be a USER of this amazing website??</h3>
+
+  <a href="{% url 'blog:register' %}"><button class="btn btn-primary" style="background-color:#8F00FF" type="submit" name="button">Register</button></a>
+  {% endif %}
+
+
+</div>
+
+{% endblock %}

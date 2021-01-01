@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% block body_block %}
+
+
+
+<main class="site-main">
+<section class="mb-30px">
+      <div class="container">
+
+
+          <img src="media/images/jjbb.jpg" alt="" width=1100px height = 700px>
+          <div class="centered">
+            {% if user.is_authenticated %}
+            <h1> Welcome {{request.user}} to Jay's Amazing Blog</h1>
+            <a href="{% url 'blog:user_profile' pk=request.user.id  %}"><input class="btn btn-primary" type="submit" name="" value="Your Profile"></a>
+             {% else %}
+             <h1>Welcome to Jay's Amazing Blog</h1>
+            {% endif %}
+          </div>
+        </div>
+
+    </section>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'blog/base.html' %}
+
+{% block body_block %}
+<div class="jumbotron" style="background-color:#FFFDD0">
+  Author:{{ blog.author }}
+  CurrentUser:{{ request.user }}
+
+  <img src="{{ blog.header_image.url }}" alt="">
+  <h2>Author:{{blog.author}}</h2>
+  <h2>Title:{{blog.title}}</h2>
+  <h2>Text:{{blog.text|safe}}</h2>
+
+  {% if blog.published_date %}
+  <p>Published Date:{{ blog.published_date }}</p>
+  {% else %}
+  {% if request.user == blog.author %}
+  <a href="{% url 'blog:publish' pk=blog.pk %}"><button class="btn btn-primary" style="background-color:#8F00FF" type="submit" name=""> Publish</button></a>
+  {% endif %}
+  {% endif %}
+
+
+  {% if user.is_authenticated %}
+  {% if blog.author == request.user %}
+  <a href="{% url 'blog:update' pk=blog.pk %}"><input class="btn btn-primary" style="background-color:#8F00FF" type="submit" name="" value="Update Blog"></a>
+  <a href="{% url 'blog:delete' pk=blog.pk %}"><input class="btn btn-primary" style="background-color:#8F00FF" type="submit" name="" value="Delete Blog"></a>
+  {% endif %}
+  {% endif %}
+
+
+  <h2>Comments:</h2>
+
+  {% for comments in blog.comment.all %}
+  {% if user.is_authenticated or comments.approved_comment %}
+  {{comments.create_date}}
+
+  {% if blog.author == request.user %}
+  {% if not comments.approved_comment %}
+  <a class="btn btn-primary" href="{% url 'blog:remove' pk=comments.pk %}"><span class="fa fa-remove"></span>RC</a>
+  <a class="btn btn-primary" href="{% url 'blog:approve' pk=comments.pk %}"><span class="fa fa-check"></span>AC</a>
+  {% endif %}
+  {% endif %}
+  {% endif %}
+  <p>Blog:{{comments.blog}}</p>
+  <p>Author:{{comments.author}}</p>
+  <p>Text:{{comments.text}}</p>
+
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+
+  <a href="{% url 'blog:create2' pk=blog.pk %}"><button class="btn btn-primary" style="background-color:#8F00FF" type="submit" name="button">Create Comment</button></a>
+  {% if blog.published_date %}
+  {% if liked %}
+  <form  action="{% url 'blog:jay_like' pk=blog.pk %}" method="POST">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit" name="blog_id" value="{{blog.id}}" name="button">Unlike</button>
+  {% else %}
+  <form  action="{% url 'blog:jay_like' pk=blog.pk %}" method="POST">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit" name="blog_id" value="{{blog.id}}" name="button">Like</button>
+  {% endif %}
+
+
+  {{total}} Likes
+
+  </form>
+  {% endif %}
+  {% else %}
+  <p><a href="{% url 'login' %}">Login</a> to LIKE AND COMMENT</p>
+
+  {% endif %}
+
+
+
+</div>
+
+
+
+{% endblock %}

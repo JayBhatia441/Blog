@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+{% block body_block %}
+<div class="jumbotron" style="background-color:#FFFDD0"">
+  <h2>{{ cats|title}}</h2>
+
+
+  {% for blog in cats_list %}
+  {% if blog.published_date %}
+  <ul>
+
+    <a href="{% url 'blog:detail' pk=blog.pk %}"><li>{{ blog.title }}</li></a>
+    <p>Author:{{blog.author}}</p>
+    <p>Published:{{blog.published_date|date:"D M Y"}}</p>
+
+  </ul>
+  <p>Comments:{{blog.comment.count}}</p>
+  {% endif %}
+
+
+
+
+  {% endfor %}
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

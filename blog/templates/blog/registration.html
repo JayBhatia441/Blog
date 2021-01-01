@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% block body_block %}
+<div class="jumbotron" style="background-color:#FFFDD0">
+  <h2>
+    {% if user.is_authenticated %}
+      Update Details
+    {% else %}
+      Registration
+    {% endif %}
+
+  </h2>
+
+
+    <form  method="post">
+      <div class="form_group">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" style="background-color:#8F00FF" type="submit" >Submit</button>
+
+      </div>
+
+
+    </form>
+
+
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block body_block %}
+<div class="jumbotron" style="background-color:#FFFDD0">
+  <h2>Category List:</h2>
+
+  {% for cat in category_list %}
+
+  <ul>
+
+    <li><a href="{% url 'blog:cats' cats=cat.name %}">{{ cat.name }}</a></li>
+
+
+  </ul>
+
+
+
+
+
+  {% endfor %}
+  {% if user.is_authenticated %}
+  <a href="{% url 'blog:category' %}"><button class="btn btn-primary" style="background-color:#8F00FF" type="submit" name="button">Create Category</button></a>
+  {% endif %}
+
+
+</div>
+
+
+{% endblock %}

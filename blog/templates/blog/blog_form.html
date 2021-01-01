@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% block body_block %}
+
+<div class="jumbotron" style="background-color:#FFFDD0">
+  <h2>Your View</h2>
+
+  <form  method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input class="btn btn-primary" style="background-color:#8F00FF" type="submit" name="" value="Create">
+
+  </form>
+
+
+
+</div>
+
+{% endblock %}
