@@ -218,3 +218,10 @@ def comment_remove(request,pk):
     post_pk = comment.blog.pk
     comment.delete()
     return redirect('blog:detail',pk=post_pk)
+
+@login_required
+def comment_remove(request,pk):
+    comment= get_object_or_404(Comment,pk=pk)
+    post_pk = comment.blog.pk
+    comment.delete()
+    return redirect('blog:detail',pk=post_pk)
