@@ -88,3 +88,20 @@ class Profile(models.Model):
 def create_auth_token(sender,instance=None,created=False,**kwargs):
     if created:
         Token.objects.create(user=instance)
+
+class Profile(models.Model):
+
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    bio = models.TextField()
+    header_image = models.ImageField(blank=True,null=True,upload_to="images/profile")
+    website_url = models.CharField(max_length = 200,null=True,blank=True)
+    facebook_url = models.CharField(max_length = 200,null=True,blank=True)
+    twitter_url = models.CharField(max_length = 200,null=True,blank=True)
+    instagram_url = models.CharField(max_length = 200,null=True,blank=True)
+
+
+
+
+
+    def __str__(self):
+        return self.user.username
